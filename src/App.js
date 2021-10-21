@@ -96,6 +96,9 @@ const App = () => {
       chess.move(study[moveNumber + 1].notation.notation)
       setFen(chess.fen());
       setMoveNumber(moveNumber + 2)
+    } else {
+      chess.move(move)
+      setFen(chess.fen())
     }
   };
 
@@ -117,7 +120,7 @@ const App = () => {
 
   const moveToBeginning = () => {
       chess.reset()
-      setFen(chess.fen())
+      setFen(fen)
       setMoveNumber(0)
   }
 
@@ -134,9 +137,9 @@ const App = () => {
       <MiddleColumn>
         <BoardPaper elevation={2}>
           <Chessboard
-            position={fen}
+            position={chess.fen()}
             onDrop={(move) =>
-              console.log(move)
+              handleMove({from: move.sourceSquare, to: move.targetSquare})
             }
             transitionDuration={150}
             orientation={whiteOrientation ? 'white' : 'black'}
